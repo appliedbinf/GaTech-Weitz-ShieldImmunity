@@ -78,7 +78,7 @@ shinyServer(function(input, output, session) {
         colnames(df_Hacu_day) = c('Baseline', paste0(par_alpha, ':1 Shielding'), 't')
         melt_Hacu_day = melt(df_Hacu_day, 't', variable.name = 'alpha', value.name = 'icu_beds')
         p_Hacu_day = melt_Hacu_day %>% 
-            mutate(ice_beds = round(icu_beds)) %>%
+            mutate(icu_beds = round(icu_beds)) %>%
             group_by(alpha) %>%
             e_charts(t) %>% 
             e_line(icu_beds) %>% 
