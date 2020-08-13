@@ -1,5 +1,5 @@
 source('libraries.R')
-
+library(waiter)
 # fancy_app_tab <- tabItem(
 #     tabName = "model",
 #     sidebarLayout(
@@ -81,7 +81,7 @@ source('libraries.R')
 # )
 
 ui <- sidebarLayout(
-    
+
     sidebarPanel(
         noUiSliderInput(
             inputId = "alpha",
@@ -93,6 +93,8 @@ ui <- sidebarLayout(
     
     mainPanel(
         fluidPage(
+            use_waiter(),
+            # waiter_on_busy(),
             fluidRow(echarts4rOutput("p_Dday")),
             fluidRow(echarts4rOutput("p_Hacu_day")),
             fluidRow(echarts4rOutput("p_D_byage"))

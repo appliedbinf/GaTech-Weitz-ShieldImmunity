@@ -15,9 +15,10 @@ shinyServer(function(input, output, session) {
     # )
     
     # sheild_params = reactiveValues("alpha" = input$alpha, "sev" = input$severity)
+    w <- Waiter$new(id = c("p_Dday", "p_Hacu_day", "p_D_byage"), hide_on_render = T, html = spin_google(), 
+                    color = transparent(.9))
     
     observe({
-        echarts4r_proxy("p_Dday") %>% e_show_loading()
         par_alpha = input$alpha
         par_sev = input$severity
         if (par_sev == "low"){
@@ -33,7 +34,7 @@ shinyServer(function(input, output, session) {
             y = yb
             stats = statsb
         }
-        
+        w$show()
         print("User input")
         print(input$alpha)
 
