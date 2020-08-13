@@ -21,13 +21,13 @@ shinyServer(function(input, output, session) {
         par_alpha = input$alpha
         par_sev = input$severity
         if (par_sev == "low"){
-            source('2020-03-30_input-parameters_low.R', local = TRUE)
+            source('2020-03-30_input-parameters_low.R')
             load('low.base.RData')
             t = tb
             y = yb
             stats = statsb
         } else {
-            source('2020-03-30_input-parameters_high.R', local = TRUE)
+            source('2020-03-30_input-parameters_high.R')
             load('high.base.RData')
             t = tb
             y = yb
