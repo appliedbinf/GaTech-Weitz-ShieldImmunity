@@ -27,10 +27,6 @@ suppressPackageStartupMessages({
     library(shinyWidgets) # Prettier inputs for shinyapps
     library(waiter) # splash screens
     library(rintrojs)
-    if (Sys.info()[["nodename"]] != "BIOABIL01"){
-        library(Cairo)
-        options(shiny.usecairo=T) # Make ggplot graphics smoother / less janky
-    }
     library(echarts4r.suite)
     library(deSolve)
     library(reshape2)
