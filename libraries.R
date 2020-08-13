@@ -5,7 +5,7 @@ suppressPackageStartupMessages({
     library(dashboardthemes) # Themes
     library(shinyjqui) # Add jquery and R-to-jquery functions
     library(shinyjs) # Javascripting of Shiny components
-    library(shinypop) # Popup notifcations
+    # library(shinypop) # Popup notifcations
     library(ggplot2) # Plotting
     library(plotly) # Heatmaps
     library(DBI) # Database connections
@@ -31,4 +31,8 @@ suppressPackageStartupMessages({
         library(Cairo)
         options(shiny.usecairo=T) # Make ggplot graphics smoother / less janky
     }
+    library(echarts4r.suite)
+    library(deSolve)
+    library(reshape2)
+    library(cowplot)
 })

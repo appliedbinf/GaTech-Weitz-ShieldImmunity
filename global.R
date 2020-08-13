@@ -1,3 +1,5 @@
+## Load model
+source("ys.model.R", local = TRUE)
 ## Libraries and options
 source('libraries.R')
 # Loading data
