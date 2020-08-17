@@ -50,14 +50,14 @@ shinyServer(function(input, output, session) {
                 ) %>%
                 e_y_axis(
                     name = "Percent of population infected",
-                    formatter = e_axis_formatter("percent", digits = 0),
+                    formatter = e_axis_formatter("percent", digits = 1),
                     nameLocation = "middle",
                     nameTextStyle = list(fontSize = 20),
                     nameGap = 50,
                     axisLabel = list(fontSize = 14)
                 ) %>%
                 e_tooltip(trigger = "axis",
-                          formatter = e_tooltip_pointer_formatter("percent")) %>%
+                          formatter = e_tooltip_pointer_formatter("percent", digits=1)) %>%
                 e_show_loading() %>% e_theme("roma")
         })
         w$show()
