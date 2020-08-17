@@ -184,7 +184,7 @@ shinyServer(function(input, output, session) {
             e_charts(age) %>%
             e_line(`Population Structure`,  y_index = 1) %>%
             e_line(deaths, legend = FALSE, symbol = "none") %>%
-            e_title("Cumulative Deaths per 100,000") %>%
+            e_title("Cumulative Deaths per 100,000", left = "center") %>%
             e_legend("icu_beds", padding = c(40, 0, 0, 0)) %>%
             # e_tooltip(trigger = "axis", )  %>%
             e_show_loading() %>% e_theme("roma")
