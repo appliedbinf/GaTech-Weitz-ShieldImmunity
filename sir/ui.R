@@ -3,17 +3,21 @@ library(waiter)
 
 ui <- sidebarLayout(
     sidebarPanel(
-        noUiSliderInput(
+        sliderInput(
             inputId = "alpha",
+            label = "Alpha",
             min = 1,
             max = 20,
-            value = 2
+            value = 2,
+            step = .1
         ),
-        noUiSliderInput(
+        sliderInput(
             inputId = "beta",
+            label="Beta",
             min = 0.15,
             max = .3,
-            value = 2
+            value = .2,
+            step=.005
         ),
         awesomeRadio(
             "model",

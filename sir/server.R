@@ -40,7 +40,7 @@ shinyServer(function(input, output, session) {
                 e_line(`Percent Infected`,
                        legend = FALSE,
                        symbol = "none") %>%
-                e_title("Infections over time\n\n") %>%
+                e_title("Infections over time", subtext = paste0("R0 = ", pars['R0'])) %>%
                 e_x_axis(
                     name = "Days since outbreak",
                     nameLocation = "middle",
