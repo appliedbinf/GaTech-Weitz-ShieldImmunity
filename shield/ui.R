@@ -19,6 +19,7 @@ ui <- sidebarLayout(sidebarPanel(
 
 mainPanel(fluidPage(
     use_waiter(),
+    tags$script(src = "iframeResizer.contentWindow.min.js"),
     fluidRow(echarts4rOutput("p_Dday")),
     fluidRow(echarts4rOutput("p_Hacu_day")),
     fluidRow(echarts4rOutput("p_D_byage"))
