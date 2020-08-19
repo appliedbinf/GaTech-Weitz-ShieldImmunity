@@ -182,7 +182,31 @@ shinyServer(function(input, output, session) {
             mutate(deaths = round(deaths, 1)) %>%
             group_by(alpha) %>%
             e_charts(age) %>%
-            e_line(`Population Structure`,  y_index = 1) %>%
+            e_line(`Population Structure`,  y_index = 1) %>% 
+            e_x_axis(
+                name = "Age",
+                nameLocation = "middle",
+                nameTextStyle = list(fontSize = 20),
+                nameGap = 30,
+                axisLabel = list(fontSize = 14)
+            ) %>%
+            e_y_axis(
+                name = "Number of deaths",
+                # formatter = e_axis_formatter("percent", digits = 0),
+                nameLocation = "middle",
+                nameTextStyle = list(fontSize = 20),
+                nameGap = 50,
+                axisLabel = list(fontSize = 14)
+            ) %>%
+            e_y_axis(
+                name = "Proportion of population",
+                index=1,
+                # formatter = e_axis_formatter("percent", digits = 0),
+                nameLocation = "middle",
+                nameTextStyle = list(fontSize = 20),
+                nameGap = 50,
+                axisLabel = list(fontSize = 14)
+            ) %>%
             e_line(deaths, legend = FALSE, symbol = "none") %>%
             e_title("Cumulative Deaths per 100,000", left = "center") %>%
             e_legend("icu_beds", padding = c(40, 0, 0, 0)) %>%

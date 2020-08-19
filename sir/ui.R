@@ -5,7 +5,7 @@ ui <- sidebarLayout(
     sidebarPanel(
         sliderInput(
             inputId = "alpha",
-            label = "Alpha",
+            label = "Alpha (strength of shielding)",
             min = 1,
             max = 20,
             value = 2,
@@ -13,7 +13,7 @@ ui <- sidebarLayout(
         ),
         sliderInput(
             inputId = "beta",
-            label="Beta",
+            label="Beta (transmission rate)",
             min = 0.15,
             max = .3,
             value = .2,

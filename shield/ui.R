@@ -4,6 +4,7 @@ library(waiter)
 ui <- sidebarLayout(sidebarPanel(
     noUiSliderInput(
         inputId = "alpha",
+	label="Alpha (strength of shielding)",
         min = 0,
         max = 20,
         value = 2
