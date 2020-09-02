@@ -19,14 +19,14 @@ maplabs <- function(mapdata) {
 calc_sii <- function(data, alpha, model){
     if (model == "core"){
         data %>% mutate(Si = 100*1/(1+(alpha*Ri))) %>%
-            mutate(Si - round(Si, 2))
+            mutate(Si = round(100-Si, 2))
     } else if (model == "soft"){
         data %>% mutate(Si = 100*1/(1+(alpha*Ri))**2) %>%
-            mutate(Si - round(Si, 2))
+            mutate(Si = round(100-Si, 2))
     } else {
         limit <- 1/(1+alpha)
         data %>% mutate(Si = 100*(1-((1+alpha)*Ri)*2)/(1-Ri)**2) %>%
-            mutate(Si - round(Si, 2))
+            mutate(Si = round(100-Si, 2))
     }
     
 }
@@ -69,7 +69,7 @@ shinyServer(function(input, output, session) {
         addLegend(
             data = sii.df,
             position = "topright", pal = pal, values = ~Ri,
-            title = "Recovery index (%)",
+            title = "Shield Immunity index (%)",
             opacity = 1,
             labFormat = function(type, cuts, p) {
                 cuts <- sort(cuts, decreasing = T)

@@ -2,7 +2,7 @@
 source('libraries.R')
 
 getData <- function() {
-    dataurl <- "../recovery_index/us-counties.csv"
+    dataurl <- "us-counties.csv"
     data <- read.csv( dataurl, stringsAsFactors = FALSE) %>% mutate(date = as_date(date))
     county <<- st_read("map_data/tl_2017_us_county.geojson") %>% 
         mutate(label = paste0(NAME, ", ", stname)) 
