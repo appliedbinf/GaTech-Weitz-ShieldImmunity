@@ -70,8 +70,6 @@ shinyServer(function(input, output, session) {
             zoom_lvl = 7
         }
         ct <- ctcounty[county_id, ]
-        print(ct)
-        print(county_id)
         leafletProxy("ri_map", session) %>%
             setView(lat = ct$ct_y, lng = ct$ct_x, zoom = zoom_lvl) 
     }, ignoreNULL = T, ignoreInit = T)
