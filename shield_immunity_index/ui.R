@@ -1,4 +1,5 @@
 ui <- fluidPage(
+    tags$script(src = "iframeResizer.contentWindow.min.js"),
     fluidRow(
         column(
             4,
