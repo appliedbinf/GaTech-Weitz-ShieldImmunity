@@ -5,12 +5,12 @@
 # 03.30.2020
 # Conan Zhao
 # czhao98 AT gatech DOT edu
-# 08.10.20202
+# 08.10.2020
 # Aroon Chande
 # achande@ihrc.com
 #
-# This is a translation of figbaseline_youngshields_v2.m and generates:
-# figbaseline_youngshields_v2.pdf
+# This is the R version of the Weitz Shield Immunity model
+# found at https://github.com/WeitzGroup/covid_shield_immunity
 
 # Model Parms: use ODE45
 #            : reltol=1e-8
