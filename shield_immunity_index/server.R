@@ -42,7 +42,13 @@ shinyServer(function(input, output, session) {
     })
     
 
-    updateSelectizeInput(session, "sel_county", choices = c("Full country" = "USA", county$label), selected = "USA" )
+    updateSelectizeInput(
+        session,
+        "sel_county",
+        choices = c("Full country" = "USA", county$label),
+        selected = "",
+        options = list(placeholder = 'select a county')
+    )
     
     observe({
 
@@ -51,6 +57,13 @@ shinyServer(function(input, output, session) {
         
         sii.df <- calc_sii(mapdata, alpha, model)    
         sii.df <- county %>% left_join(sii.df, by = c("GEOID" = "fips"))
+        sii.df <- sii.df %>%
+            mutate(Si = case_when(
+                Si >= 100 ~ 100,
+                Si < 1 ~ 0,
+                TRUE ~ Si
+            )
+        )
     
     leafletProxy("sii_map", session, data = sii.df) %>%
         clearShapes() %>%
