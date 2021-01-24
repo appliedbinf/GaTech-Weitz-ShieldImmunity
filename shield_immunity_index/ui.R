@@ -19,7 +19,7 @@ ui <- fluidPage(
                sliderInput(
                    inputId = "alpha",
                    label = "Alpha (strength of shielding)",
-                   min = 1,
+                   min = 0,
                    max = 20,
                    value = 2,
                    step = .1
