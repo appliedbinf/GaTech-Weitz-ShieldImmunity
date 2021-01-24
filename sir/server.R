@@ -35,7 +35,11 @@ shinyServer(function(input, output, session) {
         par_model = input$model
         output$p_model <- renderEcharts4r({
             SIR_shield(t, y0, shield = par_model, pars) %>%
+                mutate(model = paste0("Alpha: ", pars$alpha)) %>%
+                rbind.data.frame(base_line) %>%
+                arrange(desc(model)) %>%
                 mutate("Percent Infected" = I) %>%
+                group_by(model) %>%
                 e_charts(time) %>%
                 e_line(`Percent Infected`,
                        legend = FALSE,
@@ -58,7 +62,11 @@ shinyServer(function(input, output, session) {
                 ) %>%
                 e_tooltip(trigger = "axis",
                           formatter = e_tooltip_pointer_formatter("percent", digits=1)) %>%
-                e_show_loading() %>% e_theme("roma")
+                e_show_loading() %>% e_theme("shine")%>%
+                e_legend("model",
+                         # top = "bottom",
+                         padding = c(30, 0, 0, 0)) %>%
+                e_hide_grid_lines()
         })
         w$show()
         
