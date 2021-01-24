@@ -1,6 +1,6 @@
 ui <- fluidPage(
     tags$script(src = "iframeResizer.contentWindow.min.js"),
-    fluidRow(leafletOutput(outputId = "sii_map")),
+    tags$style(type='text/css', ".selectize-dropdown, .selectize-dropdown.form-control { z-index: 99999; }"),
     fluidRow(
         column(
             4,
@@ -35,5 +35,6 @@ ui <- fluidPage(
             )
         )
         # column(2, actionButton("zoom_county", label = "Go to a county"))
-    )
+    ),
+    fluidRow(leafletOutput(outputId = "sii_map"))
 )
