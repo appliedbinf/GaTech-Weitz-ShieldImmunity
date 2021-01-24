@@ -7,8 +7,8 @@ getData <- function() {
         mutate(label = paste0(NAME, ", ", stname)) 
     stateline <<- st_read("map_data/tl_2017_us_state.geojson")
     pop <- read.csv("map_data/county-population.csv", stringsAsFactors = FALSE)
-    cur_date <- ymd(gsub("-", "", Sys.Date())) - 1
-    before_date <- ymd(cur_date) - 14
+    most_recent <- data %>% arrange(desc(date)) %>% slice_head(n=1) %>% pull(date) %>% unlist()
+    before_date <- ymd(most_recent) - 14
     mapdata <<- data %>% filter(date == before_date) %>% mutate(fips = case_when(
         county == "New York City" ~ 99999,
         TRUE ~ as.numeric(fips)

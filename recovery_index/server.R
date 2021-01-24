@@ -30,8 +30,8 @@ shinyServer(function(input, output, session) {
     
     observeEvent(input$ri_asc_bias, {
 
-    riskdt_map <- mapdata %>% mutate(Ri = Ri * as.numeric(input$ri_asc_bias))
-    riskdt_map <- county %>% left_join(riskdt_map, by = c("GEOID" = "fips"))
+    riskdt_map <<- mapdata %>% mutate(Ri = Ri * as.numeric(input$ri_asc_bias))
+    riskdt_map <<- county %>% left_join(riskdt_map, by = c("GEOID" = "fips"))
     
     leafletProxy("ri_map", session, data = riskdt_map) %>%
         clearShapes() %>%
@@ -68,9 +68,23 @@ shinyServer(function(input, output, session) {
                 filter(label == sel_label) %>%
                 pull(GEOID) %>% as.character
             zoom_lvl = 7
-        }
-        ct <- ctcounty[county_id, ]
-        leafletProxy("ri_map", session) %>%
-            setView(lat = ct$ct_y, lng = ct$ct_x, zoom = zoom_lvl) 
+            ct <- ctcounty[county_id, ]
+            selected_polygon <- subset(riskdt_map, riskdt_map$label==sel_label)
+            leafletProxy("ri_map", session) %>%
+                setView(lat = ct$ct_y, lng = ct$ct_x, zoom = zoom_lvl) %>%
+                addPolylines(
+                    stroke = TRUE,
+                    weight = 8,
+                    color = "red",
+                    data = selected_polygon,
+                    group = "highlighted_polygon"
+                )
+        } else (
+            leafletProxy("ri_map", session) %>%
+                setView(lat = 39.8283, lng = -98.5795, zoom = zoom_lvl) %>%
+                clearGroup(group="highlighted_polygon")
+        )
+
+            
     }, ignoreNULL = T, ignoreInit = T)
 })

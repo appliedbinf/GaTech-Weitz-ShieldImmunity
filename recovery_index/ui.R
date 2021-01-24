@@ -1,13 +1,14 @@
 ui <- fluidPage(
     tags$script(src = "iframeResizer.contentWindow.min.js"),
+    fluidRow(leafletOutput(outputId = "ri_map")),
     fluidRow(
         column(
             3,
             shinyWidgets::awesomeRadio(
                 "ri_asc_bias",
                 "Ascertainment bias ",
-                choices = c(5, 10),
-                selected = 10,
+                choices = c(3, 5),
+                selected = 3,
                 inline = T
             )
         ),
@@ -20,6 +21,5 @@ ui <- fluidPage(
             )
         )
         # column(2, actionButton("zoom_county", label = "Go to a county"))
-    ),
-    leafletOutput(outputId = "ri_map"),
+    )
 )
