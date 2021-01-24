@@ -72,6 +72,7 @@ shinyServer(function(input, output, session) {
             selected_polygon <- subset(riskdt_map, riskdt_map$label==sel_label)
             leafletProxy("ri_map", session) %>%
                 setView(lat = ct$ct_y, lng = ct$ct_x, zoom = zoom_lvl) %>%
+                clearGroup(group="highlighted_polygon") %>%
                 addPolylines(
                     stroke = TRUE,
                     weight = 8,
