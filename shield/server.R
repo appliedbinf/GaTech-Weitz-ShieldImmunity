@@ -101,7 +101,8 @@ shinyServer(function(input, output, session) {
             e_legend("icu_beds",
                      # top = "bottom",
                      padding = c(30, 0, 0, 0)) %>%
-            e_show_loading() %>% e_theme("roma")
+            e_show_loading() %>% e_theme("shine")  %>%
+            e_hide_grid_lines()
         output$p_Dday = renderEcharts4r({
             p_Dday
         })
@@ -146,7 +147,8 @@ shinyServer(function(input, output, session) {
                 axisLabel = list(fontSize = 14)
             ) %>%
             e_connect_group("sheilds") %>%
-            e_show_loading() %>% e_theme("roma")
+            e_show_loading() %>% e_theme("shine") %>%
+            e_hide_grid_lines()
         
         output$p_Hacu_day = renderEcharts4r({
             p_Hacu_day
@@ -211,7 +213,7 @@ shinyServer(function(input, output, session) {
             e_title("Cumulative Deaths per 100,000", left = "center") %>%
             e_legend("icu_beds", padding = c(40, 0, 0, 0)) %>%
             # e_tooltip(trigger = "axis", )  %>%
-            e_show_loading() %>% e_theme("roma")
+            e_show_loading() %>% e_theme("shine")
         
         
         p_D_byage
