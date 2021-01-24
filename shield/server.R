@@ -91,7 +91,7 @@ shinyServer(function(input, output, session) {
                 axisLabel = list(fontSize = 14)
             ) %>%
             e_y_axis(
-                name = "Number of deaths",
+                name = "Number of deaths\nper 100,000",
                 # formatter = e_axis_formatter("percent", digits = 0),
                 nameLocation = "middle",
                 nameTextStyle = list(fontSize = 20),
@@ -139,14 +139,13 @@ shinyServer(function(input, output, session) {
                 axisLabel = list(fontSize = 14)
             ) %>%
             e_y_axis(
-                name = "Number of ICU beds needed",
+                name = "Number of ICU beds needed\nper 100,000",
                 # formatter = e_axis_formatter("percent", digits = 0),
                 nameLocation = "middle",
                 nameTextStyle = list(fontSize = 20),
-                nameGap = 50,
+                nameGap = 30,
                 axisLabel = list(fontSize = 14)
             ) %>%
-            e_connect_group("sheilds") %>%
             e_show_loading() %>% e_theme("shine") %>%
             e_hide_grid_lines()
         
@@ -182,6 +181,10 @@ shinyServer(function(input, output, session) {
         p_D_byage = melt_D_byAge %>%
             mutate(age_struct = coeff * `Population Structure`) %>%
             mutate(deaths = round(deaths, 1)) %>%
+            mutate(`Population Structure` = case_when(
+                alpha == "Age Structure" ~ `Population Structure`,
+                TRUE ~ NaN
+            )) %>%
             group_by(alpha) %>%
             e_charts(age) %>%
             e_line(`Population Structure`,  y_index = 1) %>% 
@@ -193,11 +196,11 @@ shinyServer(function(input, output, session) {
                 axisLabel = list(fontSize = 14)
             ) %>%
             e_y_axis(
-                name = "Number of deaths",
+                name = "Number of deaths\nper 100,000",
                 # formatter = e_axis_formatter("percent", digits = 0),
                 nameLocation = "middle",
                 nameTextStyle = list(fontSize = 20),
-                nameGap = 50,
+                nameGap = 30,
                 axisLabel = list(fontSize = 14)
             ) %>%
             e_y_axis(
@@ -209,15 +212,13 @@ shinyServer(function(input, output, session) {
                 nameGap = 50,
                 axisLabel = list(fontSize = 14)
             ) %>%
-            e_line(deaths, legend = FALSE, symbol = "none") %>%
+            e_line(deaths, legend = FALSE) %>%
             e_title("Cumulative Deaths per 100,000", left = "center") %>%
             e_legend("icu_beds", padding = c(40, 0, 0, 0)) %>%
-            # e_tooltip(trigger = "axis", )  %>%
+            e_tooltip(trigger = "item")  %>%
             e_show_loading() %>% e_theme("shine")
         
-        
-        p_D_byage
-        output$p_D_byage = renderEcharts4r({
+                output$p_D_byage = renderEcharts4r({
             p_D_byage
         })
         
