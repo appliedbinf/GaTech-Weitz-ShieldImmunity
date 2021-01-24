@@ -19,13 +19,13 @@ ui <- fluidPage(
         column(4,
                sliderInput(
                    inputId = "alpha",
-                   label = "Alpha (strength of shielding)",
+                   label = span(HTML("Strength of shielding (&alpha;)")),
                    min = 0,
                    max = 20,
                    value = 2,
                    step = .1
                )
-       ),
+        ),
         column(
             4,
             selectizeInput(

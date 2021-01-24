@@ -55,9 +55,9 @@ shinyServer(function(input, output, session) {
         alpha = input$alpha
         model = input$model
         
-        sii.df <- calc_sii(mapdata, alpha, model)    
-        sii.df <- county %>% left_join(sii.df, by = c("GEOID" = "fips"))
-        sii.df <- sii.df %>%
+        sii.df <<- calc_sii(mapdata, alpha, model)    
+        sii.df <<- county %>% left_join(sii.df, by = c("GEOID" = "fips"))
+        sii.df <<- sii.df %>%
             mutate(Si = case_when(
                 Si >= 100 ~ 100,
                 Si < 1 ~ 0,
@@ -100,9 +100,21 @@ shinyServer(function(input, output, session) {
                 filter(label == sel_label) %>%
                 pull(GEOID) %>% as.character
             zoom_lvl = 7
-        }
-        ct <- ctcounty[county_id, ]
-        leafletProxy("sii_map", session) %>%
-            setView(lat = ct$ct_y, lng = ct$ct_x, zoom = zoom_lvl) 
+            ct <- ctcounty[county_id, ]
+            selected_polygon <- subset(sii.df, sii.df$label==sel_label)
+            leafletProxy("sii_map", session) %>%
+                setView(lat = ct$ct_y, lng = ct$ct_x, zoom = zoom_lvl) %>%
+                addPolylines(
+                    stroke = TRUE,
+                    weight = 8,
+                    color = "red",
+                    data = selected_polygon,
+                    group = "highlighted_polygon"
+                )
+        } else (
+            leafletProxy("sii_map", session) %>%
+                setView(lat = 39.8283, lng = -98.5795, zoom = zoom_lvl) %>%
+                clearGroup(group="highlighted_polygon")
+        ) 
     }, ignoreNULL = T, ignoreInit = T)
 })
