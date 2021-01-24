@@ -1,5 +1,6 @@
 # Create mouse-over labels
 maplabs <- function(mapdata) {
+    # Create Sheild index labels, round off tails to 1/99
     mapdata <- mapdata %>%
         mutate(Si = case_when(
             Si >= 100 ~ '> 99',
@@ -54,9 +55,11 @@ shinyServer(function(input, output, session) {
 
         alpha = input$alpha
         model = input$model
-        
-        sii.df <<- calc_sii(mapdata, alpha, model)    
+        # Compute DF for map
+        sii.df <<- calc_sii(mapdata, alpha, model)
+        # Merge with GeoJSON
         sii.df <<- county %>% left_join(sii.df, by = c("GEOID" = "fips"))
+        # Valid values are within 0-100
         sii.df <<- sii.df %>%
             mutate(Si = case_when(
                 Si >= 100 ~ 100,
@@ -68,6 +71,7 @@ shinyServer(function(input, output, session) {
     leafletProxy("sii_map", session, data = sii.df) %>%
         clearShapes() %>%
         clearControls() %>%
+        # Add county Shield data
         addPolygons(
             color = "#444444", weight = 0.2, smoothFactor = 0.1,
             opacity = 1.0, fillOpacity = 0.5,
@@ -75,10 +79,12 @@ shinyServer(function(input, output, session) {
             highlight = highlightOptions(weight = 1),
             label = maplabs(sii.df)
         ) %>%
+        # Overlap state borders
         addPolygons(
             data = stateline,
             fill = FALSE, color = "#943b29", weight = 1, smoothFactor = 0.5,
             opacity = 1.0) %>%
+        # Add legend
         addLegend(
             data = sii.df,
             position = "topright", pal = pal, values = ~Ri,
@@ -93,18 +99,25 @@ shinyServer(function(input, output, session) {
 
     observeEvent(input$sel_county, {
         sel_label = input$sel_county
+        # USA / zoom level 4 are defaults
         county_id = "USA"
         zoom_lvl = 4
         if (sel_label != "USA"){
+            # county_id is FIPS id for county
             county_id = county %>% 
                 filter(label == sel_label) %>%
                 pull(GEOID) %>% as.character
             zoom_lvl = 7
+            # Get lat/long for center of county 
             ct <- ctcounty[county_id, ]
+            # Select the county polygon for highlight
             selected_polygon <- subset(sii.df, sii.df$label==sel_label)
             leafletProxy("sii_map", session) %>%
+                # Center on and zoom to county
                 setView(lat = ct$ct_y, lng = ct$ct_x, zoom = zoom_lvl) %>%
+                # Clear an existing highlighted poly
                 clearGroup(group="highlighted_polygon") %>%
+                # Add county highlight
                 addPolylines(
                     stroke = TRUE,
                     weight = 8,
@@ -112,7 +125,7 @@ shinyServer(function(input, output, session) {
                     data = selected_polygon,
                     group = "highlighted_polygon"
                 )
-        } else (
+        } else ( # If full country
             leafletProxy("sii_map", session) %>%
                 setView(lat = 39.8283, lng = -98.5795, zoom = zoom_lvl) %>%
                 clearGroup(group="highlighted_polygon")

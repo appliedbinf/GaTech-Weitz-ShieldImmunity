@@ -1,7 +1,9 @@
 ui <- fluidPage(
     tags$script(src = "iframeResizer.contentWindow.min.js"),
+    # Set z-index on dropdown to always be over leaflet controls
     tags$style(type='text/css', ".selectize-dropdown, .selectize-dropdown.form-control { z-index: 99999; }"),
     fluidRow(
+      # Model selection radios
         column(
             4,
             awesomeRadio(
@@ -16,6 +18,7 @@ ui <- fluidPage(
                 inline = T
             )
         ),
+        # Alpha slider
         column(4,
                sliderInput(
                    inputId = "alpha",
@@ -26,6 +29,7 @@ ui <- fluidPage(
                    step = .1
                )
         ),
+        # County selection dropdown
         column(
             4,
             selectizeInput(
@@ -34,7 +38,6 @@ ui <- fluidPage(
                 choices = NULL
             )
         )
-        # column(2, actionButton("zoom_county", label = "Go to a county"))
     ),
     fluidRow(leafletOutput(outputId = "sii_map"))
 )

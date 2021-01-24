@@ -23,8 +23,12 @@ shinyServer(function(input, output, session) {
         )
     
     observe({
+        progress <- shiny::Progress$new()
+        on.exit(progress$close())
+        progress$set(message = "Loading model", value = 0)
         par_alpha = input$alpha
         par_sev = input$severity
+        # Select model paramters
         if (par_sev == "low") {
             source('2020-03-30_input-parameters_low.R')
             load('low.base.RData')
@@ -39,9 +43,8 @@ shinyServer(function(input, output, session) {
             stats = statsb
         }
         w$show()
-        print("User input")
-        print(input$alpha)
-        
+        progress$inc(1/4, detail = "Running simmulation")
+
         # Sims - user input
         if (par_alpha == 2) {
             if (par_sev == "low") {
@@ -50,15 +53,13 @@ shinyServer(function(input, output, session) {
                 load('high.2x.RData')
             }
         } else if (par_alpha != 1) {
-            # print(input$alpha)
             pars$alpha <<- par_alpha
-            print("Running usermodel")
             model_res = run_core_model()
-            print("usermodel done")
             y = model_res$y
             t = model_res$t
             stats = model_res$stats
         }
+        progress$inc(2/4, detail = "Computing deaths over time")
         
         df_Dday = data.frame(
             'baseShield' = statsb$Dday * 100000
@@ -106,6 +107,7 @@ shinyServer(function(input, output, session) {
         output$p_Dday = renderEcharts4r({
             p_Dday
         })
+        progress$inc(3/4, detail = "computing ICU bed usage")
         
         # DF for icu beds per day
         df_Hacu_day = data.frame(
@@ -152,7 +154,7 @@ shinyServer(function(input, output, session) {
         output$p_Hacu_day = renderEcharts4r({
             p_Hacu_day
         })
-        
+        progress$inc(4/4, detail = "Computing Cummulative deaths")
         # DF for deaths by age
         df_D_byAge = data.frame(
             'baseShield' = statsb$D[nrow(stats$D),] * 100000

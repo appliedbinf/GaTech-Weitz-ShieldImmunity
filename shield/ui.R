@@ -13,12 +13,8 @@ ui <- sidebarLayout(
 	radioButtons(
         "severity",
         HTML(paste0("Low or High R", tags$sub("0"), " outbreak")),
-        # "Low or High R",
-        # choices = c(HTML(paste0("Low R", tags$sub("0"))), paste0("High R", tags$sub("0"))),
-        # choices = c("Low R" = "low", "High R" = "high"),
         choiceValues = c("low", "high"), 
         choiceNames =  list(span(HTML("Low R<sub>0</sub>")), span(HTML("High R<sub>0</sub>"))),
-        # selected = "low",
         inline = T
     )
 ),

@@ -1,5 +1,6 @@
 ui <- fluidPage(
     tags$script(src = "iframeResizer.contentWindow.min.js"),
+    # Set z-index so that the dropdown is always over leaflet legend
     tags$style(type='text/css', ".selectize-dropdown, .selectize-dropdown.form-control { z-index: 99999; }"),
     fluidRow(
         column(
