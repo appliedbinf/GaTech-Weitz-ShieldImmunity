@@ -21,7 +21,7 @@ shinyServer(function(input, output, session) {
             html = spin_google(),
             color = transparent(.9)
         )
-    
+    load('baseline_data.RData')
     # main data goes here
     pars = list()
     pars['gamma'] = 1 / 10
@@ -64,7 +64,6 @@ shinyServer(function(input, output, session) {
                           formatter = e_tooltip_pointer_formatter("percent", digits=1)) %>%
                 e_show_loading() %>% e_theme("shine")%>%
                 e_legend("model",
-                         # top = "bottom",
                          padding = c(30, 0, 0, 0)) %>%
                 e_hide_grid_lines()
         })
