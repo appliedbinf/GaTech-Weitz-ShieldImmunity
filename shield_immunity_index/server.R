@@ -25,7 +25,7 @@ calc_sii <- function(data, alpha, model){
             mutate(Si = round(100-Si, 2))
     } else {
         limit <- 1/(1+alpha)
-        data %>% mutate(Si = 100*(1-((1+alpha)*Ri)*2)/(1-Ri)**2) %>%
+        data %>% mutate(Si = 100*(1-((1+alpha)*Ri)**2)/(1-Ri)**2) %>%
             mutate(Si = round(100-Si, 2))
     }
     
