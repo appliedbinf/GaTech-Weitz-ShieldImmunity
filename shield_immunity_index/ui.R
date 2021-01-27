@@ -39,5 +39,5 @@ ui <- fluidPage(
             )
         )
     ),
-    fluidRow(leafletOutput(outputId = "sii_map"), style = "height:600px; padding-bottom: 25px;")
+    fluidRow(leafletOutput(outputId = "sii_map", height=550), style = "height:600px; padding-bottom: 25px;")
 )
