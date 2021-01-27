@@ -22,5 +22,5 @@ ui <- fluidPage(
             )
         )
     ),
-    fluidRow(leafletOutput(outputId = "ri_map"))
+    fluidRow(leafletOutput(outputId = "ri_map"), style = "height:550px; padding-bottom: 25px;")
 )
