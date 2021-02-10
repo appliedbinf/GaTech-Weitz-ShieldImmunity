@@ -1,6 +1,11 @@
-#function with the three options, core, soft, hard
-#Then do the ode 
-#that's it
+# Dynamical function following on Weitz et al. Nature Medicine (2020) 
+# SIR model with three options # Core shield immunity - dilution of 
+#    interactions 
+# Flexible - accounts for enhanced time-varying interaction rates of recovered 
+#    individuals 
+# Fixed - considers enhanced time-fixed interaction rates of recovered 
+#    individuals while keeping the total contact rate equal to that of the 
+#    baseline
 
 #Main function (calls following functions)
 SIR_shield = function(t,y0,shield="core",pars){
@@ -38,7 +43,7 @@ sir_shield_core = function(t,y,pars){
         
         return(dydt)})}
 
-#Hard shield
+#Fixed shield
 sir_shield_hard = function(t,y,pars){
     with(as.list(pars),{
         # SIR Model
@@ -54,7 +59,7 @@ sir_shield_hard = function(t,y,pars){
         
         return(dydt)})}
 
-#Soft shield
+#Flexible shield
 sir_shield_soft = function(t,y,pars){
     with(as.list(pars),{
         # SIR Model
