@@ -30,8 +30,8 @@ shinyServer(function(input, output, session) {
     updateSelectizeInput(session, "sel_county", choices = c("Full country" = "USA", county$label), selected = "USA" )
     
     observeEvent(input$ri_asc_bias, {
-    # Compute recooery index and join with GeoJSON
-    riskdt_map <<- mapdata %>% mutate(Ri = Ri * as.numeric(input$ri_asc_bias))
+    # Compute recovery index and join with GeoJSON
+    riskdt_map <<- mapdata %>% mutate(Ri = round(((R * as.numeric(input$ri_asc_bias)) - D)/pop * 100, 2))
     riskdt_map <<- county %>% left_join(riskdt_map, by = c("GEOID" = "fips"))
     
     leafletProxy("ri_map", session, data = riskdt_map) %>%

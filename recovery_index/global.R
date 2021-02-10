@@ -22,9 +22,7 @@ getData <- function() {
         group_by(fips) %>%
         # R: Recovered inds, assumed non-infectious after 14 days D: Dead inds
         summarize(R = sum(cases), D = sum(deaths)) %>%
-        inner_join(pop, by = "fips") %>%
-        # Ri: Recovery index; recovered alive inds per FIPS region
-        mutate(Ri = round((R / pop)*100, 1)) 
+        inner_join(pop, by = "fips") 
     
     pal <<- colorBin("YlGnBu", bins = c(0, 1, 25, 50, 75, 99, 100))
     legendlabs <<- c("< 1", " 1-25", "25-50", "50-75", "75-99", "> 99" , "No or missing data")
