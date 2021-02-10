@@ -56,8 +56,8 @@ shinyServer(function(input, output, session) {
         alpha = input$alpha
         model = input$model
         # Compute DF for map
-        sii.df <<- map_data %>%
-                    mutate(Ri = round((R - D)/pop * 100, 2)) %>%
+        sii.df <<- mapdata %>%
+                    mutate(Ri = round((R*3 - D)/pop * 100, 2)) %>%
                     calc_sii(., alpha, model)
         # Merge with GeoJSON
         sii.df <<- county %>% left_join(sii.df, by = c("GEOID" = "fips"))
