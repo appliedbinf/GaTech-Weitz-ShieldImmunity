@@ -36,6 +36,6 @@ ui <- sidebarLayout(
         use_waiter(),
         tags$script(src = "iframeResizer.contentWindow.min.js"),
         fluidRow(htmlOutput('descText')),
-        fluidRow(echarts4rOutput("p_model"))
+        fluidRow(div(echarts4rOutput("p_model")))
     ))
 )

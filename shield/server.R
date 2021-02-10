@@ -103,7 +103,9 @@ shinyServer(function(input, output, session) {
                      # top = "bottom",
                      padding = c(30, 0, 0, 0)) %>%
             e_show_loading() %>% e_theme("shine")  %>%
-            e_hide_grid_lines()
+            e_hide_grid_lines() %>%
+            e_grid(left = 100)
+
         output$p_Dday = renderEcharts4r({
             p_Dday
         })
@@ -149,7 +151,9 @@ shinyServer(function(input, output, session) {
                 axisLabel = list(fontSize = 14)
             ) %>%
             e_show_loading() %>% e_theme("shine") %>%
-            e_hide_grid_lines()
+            e_hide_grid_lines() %>%
+            e_grid(left = 100)
+
         
         output$p_Hacu_day = renderEcharts4r({
             p_Hacu_day
@@ -218,7 +222,9 @@ shinyServer(function(input, output, session) {
             e_title("Cumulative Deaths per 100,000", left = "center") %>%
             e_legend("icu_beds", padding = c(40, 0, 0, 0)) %>%
             e_tooltip(trigger = "item")  %>%
-            e_show_loading() %>% e_theme("shine")
+            e_show_loading() %>% e_theme("shine") %>%
+            e_grid(left = 100)
+
         
                 output$p_D_byage = renderEcharts4r({
             p_D_byage

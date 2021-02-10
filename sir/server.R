@@ -61,10 +61,10 @@ shinyServer(function(input, output, session) {
                 ) %>%
                 # Y axis labeling and themeing
                 e_y_axis(
-                    name = "Percent of population infected",
+                    name = "Percent of population infected per day",
                     formatter = e_axis_formatter("percent", digits = 1),
                     nameLocation = "middle",
-                    nameTextStyle = list(fontSize = 20),
+                    nameTextStyle = list(fontSize = 16),
                     nameGap = 50,
                     axisLabel = list(fontSize = 14)
                 ) %>%
@@ -73,7 +73,8 @@ shinyServer(function(input, output, session) {
                 e_show_loading() %>% e_theme("shine") %>%
                 e_legend("model",
                          padding = c(30, 0, 0, 0)) %>%
-                e_hide_grid_lines()
+                e_hide_grid_lines() %>%
+                e_grid(left = 100)
         })
         w$show()
         
