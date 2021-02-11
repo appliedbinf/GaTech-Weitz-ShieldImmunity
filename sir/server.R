@@ -74,7 +74,7 @@ shinyServer(function(input, output, session) {
                 e_legend("model",
                          padding = c(30, 0, 0, 0)) %>%
                 e_hide_grid_lines() %>%
-                e_grid(left = 100)
+                e_grid(left = 75)
         })
         w$show()
         

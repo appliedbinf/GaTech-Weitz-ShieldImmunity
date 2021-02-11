@@ -104,7 +104,7 @@ shinyServer(function(input, output, session) {
                      padding = c(30, 0, 0, 0)) %>%
             e_show_loading() %>% e_theme("shine")  %>%
             e_hide_grid_lines() %>%
-            e_grid(left = 100)
+            e_grid(left = 75)
 
         output$p_Dday = renderEcharts4r({
             p_Dday
@@ -152,7 +152,7 @@ shinyServer(function(input, output, session) {
             ) %>%
             e_show_loading() %>% e_theme("shine") %>%
             e_hide_grid_lines() %>%
-            e_grid(left = 100)
+            e_grid(left = 75)
 
         
         output$p_Hacu_day = renderEcharts4r({
@@ -223,7 +223,7 @@ shinyServer(function(input, output, session) {
             e_legend("icu_beds", padding = c(40, 0, 0, 0)) %>%
             e_tooltip(trigger = "item")  %>%
             e_show_loading() %>% e_theme("shine") %>%
-            e_grid(left = 100)
+            e_grid(left = 75)
 
         
                 output$p_D_byage = renderEcharts4r({
