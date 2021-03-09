@@ -1,0 +1,19 @@
+version: "3.0"
+
+services:
+  shiny:
+    image:  abil/weitz-shieldimmunity
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    user: 'root'
+    deploy:
+        replicas: 5
+    ports:
+      - '6000-6004:3838'
+    volumes:
+      - /projects/shieldimmunity/GaTech-Weitz-ShieldImmunity:/srv/shiny-server/
+      - /projects/shieldimmunity/logs/:/var/log/shiny-server/
+volumes:
+  shiny_logs:
