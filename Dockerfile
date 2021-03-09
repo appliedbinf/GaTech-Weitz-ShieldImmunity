@@ -54,3 +54,5 @@ RUN R -e 'packages = c("shiny", "tidyverse", \
     "sf"); \
     install.packages(packages); \
     remotes::install_github("JohnCoene/echarts4r.suite")'
+
+COPY compose-shiny-server.conf /etc/shiny-server/shiny-server.conf
