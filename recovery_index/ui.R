@@ -20,6 +20,12 @@ ui <- fluidPage(
                 "Select a county",
                 choices = NULL
             )
+        ),
+        column(
+            4,
+            p(
+                "Estimates above 99% are not high confidence estimates and likely reflect errors in ascertainment biases, reporting, or both."
+            )
         )
     ),
     fluidRow(leafletOutput(outputId = "ri_map", height=550), style = "height:600px; padding-bottom: 25px;")
